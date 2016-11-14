@@ -1,0 +1,6 @@
+FROM corbinu/docker-phpmyadmin
+
+ENV MYSQL_PORT_3306_TCP_ADDR db
+
+EXPOSE 8017
+EXPOSE 80

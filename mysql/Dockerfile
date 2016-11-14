@@ -1,0 +1,12 @@
+FROM mysql
+
+MAINTAINER binhqd
+
+ENV MYSQL_ROOT_PASSWORD 123456
+ENV MYSQL_DATABASE gg
+ENV MYSQL_USER gg
+ENV MYSQL_PASSWORD gg123456
+
+COPY dump.sql.gz /docker-entrypoint-initdb.d/dump.sql.gz
+
+EXPOSE 3306
