@@ -1,0 +1,74 @@
+server {
+    listen       80;
+    root   /home/toancauxanh.vn/public_html;
+    server_name  toancauxanh.vn www.toancauxanh.vn;
+    rewrite ^/(.*) https://toancauxanh.vn/$1 permanent;
+#   client_max_body_size 500M;
+    include /home/toancauxanh.vn/cm_rule.nginx;
+}
+
+server {
+    listen   443 ssl;
+    root   /home/toancauxanh.vn/public_html;
+    server_name www.toancauxanh.vn;
+    # SSL
+    ssl_certificate /etc/letsencrypt/live/toancauxanh.vn/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/toancauxanh.vn/privkey.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
+#   rewrite ^(.*) https://toancauxanh.vn$1 permanent;
+
+#   include /home/cm_rule.nginx;
+
+
+    if ($host ~* ^www\.(.*))
+    {
+        set $host_without_www $1;
+        rewrite ^/(.*) https://toancauxanh.vn/$1 permanent;
+    }
+
+    # unless the request is for a valid file, send to bootstrap
+    if (!-e $request_filename)
+    {
+        rewrite ^(.+)$ /index.php?q=$1 last;
+    }
+    include /home/toancauxanh.vn/cm_rule.nginx;
+}
+
+server {
+    listen       80;
+    server_name  greenglobal.vn www.greenglobal.vn;
+    root   /home/toancauxanh.vn/public_html;
+    #client_max_body_size 500M;
+    rewrite ^/(.*)$ https://greenglobal.vn/$1 permanent;
+}
+
+server {
+    listen   443 ssl;
+    root   /home/toancauxanh.vn/public_html;
+    server_name www.greenglobal.vn;
+
+    # SSL
+    ssl_certificate /etc/letsencrypt/live/toancauxanh.vn/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/toancauxanh.vn/privkey.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
+#   rewrite ^(.*) https://toancauxanh.vn$1 permanent;
+
+
+    if ($host ~* ^www\.(.*))
+    {
+        set $host_without_www $1;
+        rewrite ^/(.*) https://greenglobal.vn/$1 permanent;
+    }
+
+    # unless the request is for a valid file, send to bootstrap
+    if (!-e $request_filename)
+    {
+        rewrite ^(.+)$ /index.php?q=$1 last;
+    }
+
+    include /home/toancauxanh.vn/cm_rule.nginx;
+}

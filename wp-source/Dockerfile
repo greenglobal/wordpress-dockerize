@@ -1,12 +1,5 @@
-FROM richarvey/nginx-php-fpm
+FROM richarvey/nginx-php-fpm:latest
 
-#RUN apt-get update && apt-get install -y ssh git nginx
-
-#RUN mkdir -p /root/.ssh \
-#    && ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts \
-#    && ssh-keyscan github.com >> /root/.ssh/known_hosts
-
-ENV appDir /var/www/html
 ENV WEBROOT /var/www/html
 #ENV GIT_REPO https://binhqdgreenglobal@bitbucket.org/toancauxanh/gg-web-live.git
 ENV GIT_EMAIL binhqd@greenglobal.vn
@@ -16,15 +9,12 @@ ENV GIT_NAME binhqdgreenglobal
 
 
 # Set the work directory
-#RUN mkdir -p /var/www
 WORKDIR /var/www/html
 
-COPY run.sh ./
-COPY privatekey ./
-# COPY vhost /etc/nginx/sites-enabled/default
+# COPY run.sh ./
+COPY vhost.sample /etc/nginx/sites-enabled/default.conf
+COPY cm_rules.nginx.sample /var/www/cm_rules.nginx
 
-# RUN chmod 400 privatekey && eval "$(ssh-agent -s)" && ssh-add privatekey && git clone -b develop git@bitbucket.org:toancauxanh/gg-web-live.git greenglobal-website
 WORKDIR /var/www/html
 
 EXPOSE 3000
-#ENTRYPOINT ["sh", "/var/www/app/run.sh"]
