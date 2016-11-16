@@ -19,7 +19,7 @@ RUN mkdir -p /root/.ssh \
 
 
 # Set the work directory
-rm -rf /var/www/html
+RUN rm -rf /var/www/html
 WORKDIR /var/www
 
 COPY privatekey ./
