@@ -12,9 +12,18 @@ ENV WP_PASS gg123456
 ENV WP_HOST db
 ENV WP_CACHEHOME /var/www/html/wp-content/plugins/wp-super-cache/
 
+RUN mkdir -p /root/.ssh \
+    && ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts \
+    && ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # Set the work directory
-WORKDIR /var/www/html
+rm -rf /var/www/html
+WORKDIR /var/www
+
+COPY privatekey ./
+
+RUN chmod 400 privatekey && eval "$(ssh-agent -s)" && ssh-add privatekey && git clone -b develop git@bitbucket.org:toancauxanh/gg-web-live.git html
+
 
 # COPY run.sh ./
 COPY vhost.sample /etc/nginx/sites-enabled/default.conf
