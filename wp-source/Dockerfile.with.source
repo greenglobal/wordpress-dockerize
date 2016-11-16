@@ -19,13 +19,15 @@ RUN mkdir -p /root/.ssh \
 
 
 # Set the work directory
-RUN rm -rf /var/www/html
 WORKDIR /var/www
 
 COPY privatekey ./
 
-RUN chmod 400 privatekey && eval "$(ssh-agent -s)" && ssh-add privatekey && git clone -b develop git@bitbucket.org:toancauxanh/gg-web-live.git html
+RUN chmod 400 privatekey && eval "$(ssh-agent -s)" && ssh-add privatekey && git clone -b develop git@bitbucket.org:toancauxanh/gg-web-live.git tmp
 
+RUN rm -rf html/*
+RUN cp -R tmp/* html/
+RUN rm -rf tmp
 
 # COPY run.sh ./
 COPY vhost.sample /etc/nginx/sites-enabled/default.conf
