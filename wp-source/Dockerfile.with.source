@@ -23,11 +23,12 @@ WORKDIR /var/www
 
 COPY privatekey ./
 
-RUN chmod 400 privatekey && eval "$(ssh-agent -s)" && ssh-add privatekey && git clone -b develop git@bitbucket.org:toancauxanh/gg-web-live.git tmp
+RUN rm -rf /var/www/tmp
+RUN chmod 400 privatekey && eval "$(ssh-agent -s)" && ssh-add privatekey && git clone -b develop git@bitbucket.org:toancauxanh/gg-web-live.git /var/www/tmp
 
-RUN rm -rf html/*
-RUN cp -R tmp/* html/
-RUN rm -rf tmp
+RUN rm -rf /var/www/html/*
+RUN cp -R tmp/* /var/www/html/
+
 
 # COPY run.sh ./
 COPY vhost.sample /etc/nginx/sites-enabled/default.conf
