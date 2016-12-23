@@ -5,6 +5,7 @@ sudo docker build --tag=wp-db:1.0 mysql/
 sudo docker build --tag=mysql-admin-guid:1.0 phpmyadmin/
 ```
 
+## Run images
 ```sh
 sudo docker run -d --name=wp-db --restart=always wp-db:1.0
 
