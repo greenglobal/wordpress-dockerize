@@ -13,5 +13,5 @@ sudo docker run -d --name=mysql-admin-guid --restart=always -p 3001:80 --link=wp
 
 sudo docker run --name=wp-source -p 8080:80 --link=wp-db:db \
 -e "NODE_ENV=development" \
--v "/var/www/wordpress/source:/var/www/html" wp-source:1.0
+-v "/var/www/wordpress/wordpress-dockerize/wp4.7:/var/www/html" wp-source:1.0
 ```
