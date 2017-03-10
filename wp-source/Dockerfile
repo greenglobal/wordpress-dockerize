@@ -15,6 +15,18 @@ WORKDIR /var/www
 COPY vhost.sample /etc/nginx/sites-enabled/default.conf
 COPY cm_rules.nginx.sample /var/www/cm_rules.nginx
 
+# setup WP CLI
+RUN cd ~
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
+
+RUN wp --info
+
+# setup composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install- dir=/usr/local/bin --filename=composer
+RUN composer
+
 WORKDIR /var/www/html
 
 EXPOSE 3000
