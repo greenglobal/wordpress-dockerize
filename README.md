@@ -35,3 +35,6 @@ yarn run build:production
 ```sh
 sudo docker exec wp-source bash -c "wp theme activate <theme name>"
 ```
+
+## Installation video
+[![Installation video](https://img.youtube.com/vi/ahr1CUHAO7c/0.jpg)](https://www.youtube.com/watch?v=ahr1CUHAO7c)
