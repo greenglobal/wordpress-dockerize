@@ -1,3 +1,9 @@
+## Admin info
+```sh
+username: ggadmin
+password: greenglobal@?!
+```
+
 ## Build images
 ```sh
 sudo docker build --tag=wp-source:1.0 wp-source/
