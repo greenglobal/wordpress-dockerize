@@ -1,5 +1,6 @@
 ## Admin info
 ```sh
+url: http://localhost:8080/gglogin
 username: ggadmin
 password: greenglobal@?!
 ```
