@@ -1,3 +1,10 @@
+## Generate a htpasswd file:
+```sh
+sudo docker run --rm -ti xmartlabs/htpasswd ggadmin greenglobal@?! > wordpress/.htpasswd
+username: ggadmin
+password: greenglobal@?!
+```
+
 ## Admin info
 ```sh
 url: http://localhost:8080/gglogin

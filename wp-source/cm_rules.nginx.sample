@@ -38,12 +38,18 @@ location ~ \.php$ {
     try_files $uri =404;
 
     set $auth_basic off;
-    if ($request_uri ~ "login") {
+    if ($request_uri ~ "gglogin") {
+        set $auth_basic "Restricted Area";
+    }
+    if ($request_uri ~ "wp-admin") {
+        set $auth_basic "Restricted Area";
+    }
+    if ($request_uri ~ "wp-login.php") {
         set $auth_basic "Restricted Area";
     }
 
-#   auth_basic_user_file /var/www/.htpasswd;
-#   auth_basic $auth_basic;
+    auth_basic $auth_basic;
+    auth_basic_user_file /var/www/html/.htpasswd;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
     fastcgi_pass unix:/var/run/php-fpm.sock;
 #   fastcgi_pass 127.0.0.1:9000;
