@@ -1,0 +1,39 @@
+version: '2'
+services:
+  wordpress:
+    build: ./wp-source
+    container_name: source-wp # change name if required
+    ports:
+      - 8080:80 # change port if required
+    volumes:
+      - ./wp-latest:/var/www/html
+    environment:
+      MYSQL_DATABASE: wp
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: 123456
+      MYSQL_HOST: db
+    depends_on:
+      - db
+    restart: always
+  db:
+    build: ./mysql
+    container_name: db-wp # change name if required
+    ports:
+      - 3306:3306 # change port if required
+    environment:
+     MYSQL_ROOT_PASSWORD: 1234    
+    restart: always
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin:4.7
+#    container_name: phpadmin-wp # change name if required
+#    ports:
+#      - 8081:80 # change port if required
+#    environment:
+#     MYSQL_USERNAME: root
+#     MYSQL_ROOT_PASSWORD: 1234
+#     PMA_HOST: db    
+#   restart: always
+networks:
+  default:      
+    external:      
+      name: tcx-wordpress

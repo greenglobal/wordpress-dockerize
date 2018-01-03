@@ -1,3 +1,13 @@
+## Build network
+```sh
+sudo docker network create tcx-wordpress
+```
+
+## Run Docker compose
+```sh
+sudo docker-compose up -d
+```
+
 ## Generate a htpasswd file:
 ```sh
 sudo docker run --rm -ti xmartlabs/htpasswd ggadmin greenglobal@?! > wordpress/.htpasswd
@@ -10,25 +20,6 @@ password: greenglobal@?!
 url: http://localhost:8080/gglogin
 username: ggadmin
 password: greenglobal@?!
-```
-
-## Build images
-```sh
-sudo docker build --tag=wp-source:1.0 wp-source/
-sudo docker build --tag=wp-db:1.0 mysql/
-sudo docker build --tag=mysql-admin-guid:1.0 phpmyadmin/
-```
-
-## Run images
-```sh
-sudo docker run -d --name=wp-db --restart=always wp-db:1.0
-
-sudo docker run -d --name=mysql-admin-guid --restart=always -p 3001:80 --link=wp-db:db \
--e "NODE_ENV=development" mysql-admin-guid:1.0
-
-sudo docker run --name=wp-source -p 8080:80 --link=wp-db:db \
--e "NODE_ENV=development" \
--v "/var/www/wordpress/wordpress-dockerize/wordpress:/var/www/html" wp-source:1.0
 ```
 
 ## Install plugin

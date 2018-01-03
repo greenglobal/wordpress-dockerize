@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:1.1.6
+FROM richarvey/nginx-php-fpm:1.4.0
 
 ENV WEBROOT /var/www/html
 
