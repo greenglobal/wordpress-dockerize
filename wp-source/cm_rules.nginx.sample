@@ -47,6 +47,9 @@ location ~ \.php$ {
     if ($request_uri ~ "wp-login.php") {
         set $auth_basic "Restricted Area";
     }
+    if ($request_uri ~ "wp-admin/admin-ajax.php") {
+        set $auth_basic off;
+    }
     
     auth_basic $auth_basic;
     auth_basic_user_file /var/www/html/.htpasswd;
